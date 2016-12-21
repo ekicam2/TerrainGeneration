@@ -1,9 +1,11 @@
 #include "App.h"
-
 #include "Shader.h"
+
 
 bool App::init(glm::vec2 && size, const char * title)
 {
+    _window = nullptr;
+    debugProgram = nullptr;
     return initGLFW(std::move(size), title);
 }
 
@@ -16,19 +18,21 @@ void App::debugInit()
         0.0f,  1.0f, 0.0f,
     };
 
-
-
     Shader s1(Shader::Type::VERTEX, "Shaders/debug.vs");
     Shader s2(Shader::Type::FRAGMENT, "Shaders/debug.fs");
 
     if (!s1.compile() || !s2.compile())
         throw("lolololo");
 
+    debugProgram = new Program();
     debugProgram->attachShader(s1.getHandle());
     debugProgram->attachShader(s2.getHandle());
 
     if (!debugProgram->link())
         throw("lololo2");
+
+    glGenVertexArrays(1, &debugVAO);
+    glBindVertexArray(debugVAO);
 
     glGenBuffers(1, &debugVBO);
     glBindBuffer(GL_ARRAY_BUFFER, debugVBO);
@@ -70,16 +74,19 @@ bool App::initGLFW(glm::vec2 && size, const char * title)
 
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    if (_window = glfwCreateWindow(size.x, size.y, title, NULL, NULL))
+    int major = 4, minor = 5;
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
+    _window = glfwCreateWindow(size.x, size.y, title, NULL, NULL);
+    if(_window == nullptr)
         return false;
 
     glfwMakeContextCurrent(_window);
     if (glfwGetCurrentContext == NULL)
         return false;
-
-    initGLEW();
+    
+    if (!initGL3W(major, minor))
+        return false;
 
     int w, h;
     glfwGetFramebufferSize(_window, &w, &h);
@@ -90,14 +97,13 @@ bool App::initGLFW(glm::vec2 && size, const char * title)
     return true;
 }
 
-bool App::initGLEW()
+bool App::initGL3W(int major, int minor)
 {
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
+    if (gl3wInit())
         return false;
 
-    glGenVertexArrays(1, &debugVAO);
-    glBindVertexArray(debugVAO);
+    if (!gl3wIsSupported(major, minor))
+        return false;
 
     return true;
 }

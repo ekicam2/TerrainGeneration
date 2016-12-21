@@ -1,6 +1,5 @@
-#include <glm\glm.hpp>
-
 #include "App.h"
+
 /*
 TODO:
 1 make a triangle and draw at the screen [ ]
@@ -20,8 +19,9 @@ TODO:
 int main()
 {
     App application;
-    if (application.init(glm::vec2(1024, 768), "Triangle yai"))
+    if (!application.init(glm::vec2(1024, 768), "Triangle yai"))
         return -1;
+
     application.debugInit();
 
     return application.run();

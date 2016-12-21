@@ -18,7 +18,7 @@ Shader::Shader(Type type, std::string && fileName)
     }
     
     const GLchar* src = const_cast<GLchar*>(source.c_str());
-    glShaderSource(_handle, 1, &src, 0);
+    gl3wShaderSource(_handle, 1, &src, 0);
 }
 
 bool Shader::compile()

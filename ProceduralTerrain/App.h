@@ -1,5 +1,5 @@
 #pragma once
-#include <GL\glew.h>
+#include <GL\gl3w.h>
 #define GLFW_DLL 
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
@@ -19,7 +19,7 @@ private:
     GLFWwindow* _window;
 
     bool initGLFW(glm::vec2 && size, const char * title);
-    bool initGLEW();
+    bool initGL3W(int major, int minor);
 
     Program* debugProgram;
     GLuint debugVAO;

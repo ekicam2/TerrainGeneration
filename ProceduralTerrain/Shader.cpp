@@ -7,16 +7,19 @@ using namespace std;
 Shader::Shader(Type type, std::string && fileName)
 : _type(type) {
 
-    _handle = (static_cast<uint32_t>(_type));
+    _handle = glCreateShader(static_cast<uint32_t>(_type));
 
     auto file = ifstream(fileName);
     string line;
     string source = "";
-
-    while (getline(file, line)) {
-        source.append(line + "\n");
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            source.append(line + "\n");
+        }
     }
-    
+    else {
+        DebugBreak();
+    }
     const GLchar* src = const_cast<GLchar*>(source.c_str());
     gl3wShaderSource(_handle, 1, &src, 0);
 }

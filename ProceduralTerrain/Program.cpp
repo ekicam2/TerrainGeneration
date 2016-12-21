@@ -1,5 +1,6 @@
 #include "Program.h"
 #include "Shader.h"
+#include <iostream>
 
 Program::Program()
 {
@@ -18,9 +19,21 @@ bool Program::link()
     int32_t status;
     glGetProgramiv(_handle, GL_LINK_STATUS, &status);
     
-    if (!status)
-        return false;
+    if (!status) {
+        int32_t blen = 0;
+        glGetProgramiv(_handle, GL_INFO_LOG_LENGTH, &blen);
 
+        if (blen > 0)
+        {
+            GLsizei slen = 0;
+            GLchar * compiler_log = new GLchar[blen];
+            glGetProgramInfoLog(_handle, blen, &slen, compiler_log);
+
+            std::cout << "Program linkage failed: " << compiler_log;
+            delete[] compiler_log;
+        }
+        return false;
+    }
     return true;
 }
 

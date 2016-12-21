@@ -12,7 +12,7 @@ public:
     bool init(glm::vec2&& size, const char* title);
     bool run();
 
-    void debugInit();
+    bool debugInit();
 
     ~App();
 private:

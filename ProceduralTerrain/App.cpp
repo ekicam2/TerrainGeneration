@@ -10,7 +10,7 @@ bool App::init(glm::vec2 && size, const char * title)
 }
 
 
-void App::debugInit()
+bool App::debugInit()
 {
     static const GLfloat vertices[] = {
         -1.0f, -1.0f, 0.0f,
@@ -18,18 +18,18 @@ void App::debugInit()
         0.0f,  1.0f, 0.0f,
     };
 
-    Shader s1(Shader::Type::VERTEX, "Shaders/debug.vs");
-    Shader s2(Shader::Type::FRAGMENT, "Shaders/debug.fs");
+    Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
+    Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
 
     if (!s1.compile() || !s2.compile())
-        throw("lolololo");
+        return false;
 
     debugProgram = new Program();
     debugProgram->attachShader(s1.getHandle());
     debugProgram->attachShader(s2.getHandle());
 
     if (!debugProgram->link())
-        throw("lololo2");
+        return false;
 
     glGenVertexArrays(1, &debugVAO);
     glBindVertexArray(debugVAO);

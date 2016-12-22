@@ -37,9 +37,15 @@ bool Program::link()
     return true;
 }
 
+
 void Program::bind()
 {
     glUseProgram(_handle);
+}
+
+GLuint Program::getHandle() const
+{
+    return _handle;
 }
 
 Program::~Program()

@@ -5,14 +5,16 @@
 #include <glm\glm.hpp>
 
 #include "Program.h"
+#include "Renderer.h"
+#include "Drawable.h"
 
 class App final {
 public:
     App() = default;
     bool init(glm::vec2&& size, const char* title);
+    bool componentsInit();
     bool run();
 
-    bool debugInit();
 
     ~App();
 private:
@@ -22,7 +24,7 @@ private:
     bool initGL3W(int major, int minor);
 
     Program* debugProgram;
-    GLuint debugVAO;
-    GLuint debugVBO;
+    Renderer* renderer;
+    Drawable* drawable;
 };
 

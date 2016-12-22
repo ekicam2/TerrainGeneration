@@ -10,13 +10,12 @@ bool App::init(glm::vec2 && size, const char * title)
 }
 
 
-bool App::debugInit()
+bool App::componentsInit()
 {
-    static const GLfloat vertices[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f,
-    };
+    renderer = new Renderer();
+
+    // everything below will be deleted
+    drawable = new Drawable();
 
     Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
     Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
@@ -31,12 +30,7 @@ bool App::debugInit()
     if (!debugProgram->link())
         return false;
 
-    glGenVertexArrays(1, &debugVAO);
-    glBindVertexArray(debugVAO);
 
-    glGenBuffers(1, &debugVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, debugVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 }
 
 bool App::run()
@@ -44,15 +38,9 @@ bool App::run()
     while (!glfwWindowShouldClose(_window))
     {
         // Keep running
-        glClearColor(1.0f, 0.2f, 0.2f, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        
+        renderer->clear(0.3f, 0.3f, 1.0f);
         debugProgram->bind();
-        glBindBuffer(GL_ARRAY_BUFFER, debugVBO);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        glEnableVertexAttribArray(0);
+        renderer->draw(drawable);
 
         glfwSwapBuffers(_window);
         glfwPollEvents();

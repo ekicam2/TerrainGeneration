@@ -8,6 +8,7 @@ public:
     void attachShader(GLuint&& shader);
     bool link();
     void bind();
+    GLuint getHandle() const;
     ~Program();
 
 private:

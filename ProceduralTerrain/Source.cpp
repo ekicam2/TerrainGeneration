@@ -28,7 +28,7 @@ int main()
     if (!application.init(glm::vec2(1024, 768), "Triangle yai"))
         return -1;
 
-    if (!application.debugInit())
+    if (!application.componentsInit())
         return -2;
 
     return application.run();

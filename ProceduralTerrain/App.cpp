@@ -15,22 +15,23 @@ bool App::componentsInit()
     renderer = new Renderer();
 
     // everything below will be deleted
-    drawable = new Drawable();
+    {
+        drawable = new Drawable();
 
-    Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
-    Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
+        Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
+        Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
 
-    if (!s1.compile() || !s2.compile())
-        return false;
+        if (!s1.compile() || !s2.compile())
+            return false;
 
-    debugProgram = new Program();
-    debugProgram->attachShader(s1.getHandle());
-    debugProgram->attachShader(s2.getHandle());
+        debugProgram = new Program();
+        debugProgram->attachShader(s1.getHandle());
+        debugProgram->attachShader(s2.getHandle());
 
-    if (!debugProgram->link())
-        return false;
-
-
+        if (!debugProgram->link())
+            return false;
+    }
+    return true;
 }
 
 bool App::run()

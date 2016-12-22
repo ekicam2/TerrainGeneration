@@ -19,12 +19,12 @@ public:
     ~App();
 private:
     GLFWwindow* _window;
+    Renderer* renderer;
+    Drawable* drawable;
 
     bool initGLFW(glm::vec2 && size, const char * title);
     bool initGL3W(int major, int minor);
 
     Program* debugProgram;
-    Renderer* renderer;
-    Drawable* drawable;
 };
 

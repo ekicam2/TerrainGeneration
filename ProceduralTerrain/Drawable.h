@@ -29,7 +29,7 @@ public:
         @param indices an array of vertices indices
         @param size of indices array in bytes
     */
-    void setIndices(unsigned short* indices, uint32_t size);
+    void setIndices(uint16_t* indices, uint32_t size);
     /*
     Fills VBO with color data.
 

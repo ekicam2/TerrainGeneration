@@ -34,6 +34,8 @@ void Renderer::draw(const Drawable* drawable)
     switch (_renderMode) {
     case RENDER_MODES::POINTS:
         glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+        glEnable(GL_POINT_SIZE);
+        glPointSize(3);
         break;
 
     case RENDER_MODES::WIRE_FRAME:
@@ -49,7 +51,6 @@ void Renderer::draw(const Drawable* drawable)
 
     glBindVertexArray(drawable->getVAO());
     //glDrawArrays(GL_TRIANGLES, 0, 3);
-    //glDrawElements(GL_TRIANGLES, 6 * sizeof(short), GL_UNSIGNED_INT, 0);
     glDrawElementsBaseVertex(GL_TRIANGLES, 6 * sizeof(unsigned short), GL_UNSIGNED_SHORT, 0, 0);
     glBindVertexArray(0);
 }

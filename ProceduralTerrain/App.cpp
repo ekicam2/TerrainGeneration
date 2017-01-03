@@ -13,11 +13,11 @@ bool App::init(glm::vec2 && size, const char * title)
 bool App::componentsInit()
 {
     renderer = new Renderer();
-    renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
+    renderer->setRenderMode(Renderer::RENDER_MODES::POINTS);
 
     // everything below will be deleted
     {
-        terrain = new Terrain(glm::vec2(1,1));
+        terrain = new Terrain(glm::vec2(5,2));
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");

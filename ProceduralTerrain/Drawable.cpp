@@ -29,7 +29,7 @@ void Drawable::setVertices(float* vertices, uint32_t size)
     glBindVertexArray(0);
 }
 
-void Drawable::setIndices(unsigned short * indices, uint32_t size)
+void Drawable::setIndices(uint16_t* indices, uint32_t size)
 {
     glBindVertexArray(_VAO);
 

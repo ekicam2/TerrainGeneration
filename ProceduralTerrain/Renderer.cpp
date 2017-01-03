@@ -45,7 +45,11 @@ void Renderer::draw(const Drawable* drawable)
         break;
     }
 
+    //drawable->getProgram()->bind();
+
     glBindVertexArray(drawable->getVAO());
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
+    //glDrawElements(GL_TRIANGLES, 6 * sizeof(short), GL_UNSIGNED_INT, 0);
+    glDrawElementsBaseVertex(GL_TRIANGLES, 6 * sizeof(unsigned short), GL_UNSIGNED_SHORT, 0, 0);
     glBindVertexArray(0);
 }

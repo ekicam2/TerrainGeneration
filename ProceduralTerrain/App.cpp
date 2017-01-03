@@ -13,10 +13,11 @@ bool App::init(glm::vec2 && size, const char * title)
 bool App::componentsInit()
 {
     renderer = new Renderer();
+    renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
 
     // everything below will be deleted
     {
-        drawable = new Drawable();
+        terrain = new Terrain(glm::vec2(1,1));
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
@@ -41,7 +42,7 @@ bool App::run()
         // Keep running
         renderer->clear(0.3f, 0.3f, 1.0f);
         debugProgram->bind();
-        renderer->draw(drawable);
+        renderer->draw(terrain);
 
         glfwSwapBuffers(_window);
         glfwPollEvents();

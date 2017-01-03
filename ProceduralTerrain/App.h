@@ -7,6 +7,7 @@
 #include "Program.h"
 #include "Renderer.h"
 #include "Drawable.h"
+#include "Terrain.h"
 
 class App final {
 public:
@@ -20,7 +21,7 @@ public:
 private:
     GLFWwindow* _window;
     Renderer* renderer;
-    Drawable* drawable;
+    Terrain* terrain;
 
     bool initGLFW(glm::vec2 && size, const char * title);
     bool initGL3W(int major, int minor);

@@ -9,11 +9,41 @@ class Drawable
 public:
     enum class BUFFERS {
         VERTEX,
+        INDEX,
         COLOR,
         TEXTURE_COORD,
         SIZE
     };
     Drawable();
+    Drawable(Program* program);
+    /*
+        Fills VBO with vertex data.
+
+        @param vertices an array of vertices
+        @param size of vertices array in bytes
+    */
+    void setVertices(float* vertices, uint32_t size);
+    /*
+        Fills VBO with index data.
+        
+        @param indices an array of vertices indices
+        @param size of indices array in bytes
+    */
+    void setIndices(unsigned short* indices, uint32_t size);
+    /*
+    Fills VBO with color data.
+
+    @param colors an array of colors
+    @param size of colors array in bytes
+    */
+    void setColor(float* colors, uint32_t size);
+    /*
+    Fills VBO with UVs data.
+
+    @param uvs an array of texture coordinates
+    @param size of uvs array in bytes
+    */
+    void setTextureCoords(float* uvs, uint32_t size);
     Program* getProgram() const;
     GLuint   getVAO() const;
     ~Drawable();
@@ -21,7 +51,6 @@ public:
 
 protected:
     Program* _program;
-    GLuint _VAO;
-    GLuint _VBO[static_cast<uint32_t>(BUFFERS::SIZE)];
+    GLuint   _VAO;
+    GLuint   _VBO[static_cast<uint32_t>(BUFFERS::SIZE)];
 };
-

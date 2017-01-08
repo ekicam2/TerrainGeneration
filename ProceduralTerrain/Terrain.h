@@ -7,6 +7,7 @@ class Terrain : public Drawable
 public:
     Terrain() = delete;
     Terrain(glm::vec2&& size);
+    void generate();
     // TODO: heightmap 
     ~Terrain();
 

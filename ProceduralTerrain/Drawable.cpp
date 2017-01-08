@@ -31,6 +31,8 @@ void Drawable::setVertices(float* vertices, uint32_t size)
 
 void Drawable::setIndices(uint16_t* indices, uint32_t size)
 {
+    _indicesSize = size / sizeof(uint16_t);
+
     glBindVertexArray(_VAO);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _VBO[static_cast<uint32_t>(BUFFERS::INDEX)]);
@@ -39,6 +41,11 @@ void Drawable::setIndices(uint16_t* indices, uint32_t size)
     glVertexAttribPointer(1, 3, GL_UNSIGNED_SHORT, GL_FALSE, 0, (void*)0);
 
     glBindVertexArray(0);
+}
+
+uint32_t Drawable::getIndicesSize() const
+{
+    return _indicesSize;
 }
 
 void Drawable::setColor(float* colors, uint32_t size)

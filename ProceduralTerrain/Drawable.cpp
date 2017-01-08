@@ -22,7 +22,7 @@ void Drawable::setVertices(float* vertices, uint32_t size)
     glBindVertexArray(_VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, _VBO[static_cast<uint32_t>(BUFFERS::VERTEX)]);
-    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), vertices, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
@@ -31,21 +31,21 @@ void Drawable::setVertices(float* vertices, uint32_t size)
 
 void Drawable::setIndices(uint16_t* indices, uint32_t size)
 {
-    _indicesSize = size / sizeof(uint16_t);
+    _indicesNum = size;
 
     glBindVertexArray(_VAO);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _VBO[static_cast<uint32_t>(BUFFERS::INDEX)]);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(uint16_t), indices, GL_STATIC_DRAW);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_UNSIGNED_SHORT, GL_FALSE, 0, (void*)0);
 
     glBindVertexArray(0);
 }
 
-uint32_t Drawable::getIndicesSize() const
+uint32_t Drawable::getIndicesNum() const
 {
-    return _indicesSize;
+    return _indicesNum;
 }
 
 void Drawable::setColor(float* colors, uint32_t size)

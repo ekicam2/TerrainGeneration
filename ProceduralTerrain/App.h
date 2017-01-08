@@ -12,7 +12,7 @@
 class App final {
 public:
     App() = default;
-    bool init(glm::vec2&& size, const char* title);
+    bool init(const glm::vec2& windowSize, const char* title);
     bool componentsInit();
     bool run();
 
@@ -23,7 +23,7 @@ private:
     Renderer* renderer;
     Terrain* terrain;
 
-    bool initGLFW(glm::vec2 && size, const char * title);
+    bool initGLFW(const glm::vec2 & size, const char * title);
     bool initGL3W(int major, int minor);
 
     Program* debugProgram;

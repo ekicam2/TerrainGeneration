@@ -6,7 +6,13 @@ class Terrain : public Drawable
 {
 public:
     Terrain() = delete;
-    Terrain(glm::vec2&& size);
+
+    /*
+        Generete flat plane based on gived size.
+
+        @param size The size of tiled terrain
+    */
+    Terrain(const glm::vec2& size);
     void generate();
     // TODO: heightmap 
     ~Terrain();

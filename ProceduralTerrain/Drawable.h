@@ -21,7 +21,7 @@ public:
         Fills VBO with vertex data.
 
         @param vertices an array of vertices
-        @param size of vertices array in bytes
+        @param size of vertices array
     */
     void setVertices(float* vertices, uint32_t size);
 
@@ -29,16 +29,16 @@ public:
         Fills VBO with index data.
         
         @param indices an array of vertices indices
-        @param size of indices array in bytes
+        @param size of indices array
     */
     void setIndices(uint16_t* indices, uint32_t size);
     
     /*
     Get size of indices data stored in the drawable's VBO.
 
-    @return vertices size in bytes;
+    @return indices count;
     */
-    uint32_t getIndicesSize() const;
+    uint32_t getIndicesNum() const;
 
     /*
     Fills VBO with color data.
@@ -66,5 +66,5 @@ protected:
     GLuint   _VAO;
     GLuint   _VBO[static_cast<uint32_t>(BUFFERS::SIZE)];
 
-    uint32_t _indicesSize;
+    uint32_t _indicesNum;
 };

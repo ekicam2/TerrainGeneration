@@ -50,6 +50,6 @@ void Renderer::draw(const Drawable* drawable)
     //drawable->getProgram()->bind();
 
     glBindVertexArray(drawable->getVAO());
-    glDrawElementsBaseVertex(GL_TRIANGLES, drawable->getIndicesSize(), GL_UNSIGNED_SHORT, (void*)0, 0);
+    glDrawElementsBaseVertex(GL_TRIANGLES, drawable->getIndicesNum(), GL_UNSIGNED_SHORT, (void*)0, 0);
     glBindVertexArray(0);
 }

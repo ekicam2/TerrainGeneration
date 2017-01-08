@@ -2,11 +2,11 @@
 #include "Shader.h"
 
 
-bool App::init(glm::vec2 && size, const char * title)
+bool App::init(const glm::vec2 & windowSize, const char * title)
 {
     _window = nullptr;
     debugProgram = nullptr;
-    return initGLFW(std::move(size), title);
+    return initGLFW(windowSize, title);
 }
 
 
@@ -17,7 +17,7 @@ bool App::componentsInit()
 
     // everything below will be deleted
     {
-        terrain = new Terrain(glm::vec2(12,12));
+        terrain = new Terrain(glm::vec2(32,32));
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
@@ -57,7 +57,7 @@ App::~App()
     glfwTerminate();
 }
 
-bool App::initGLFW(glm::vec2 && size, const char * title)
+bool App::initGLFW(const glm::vec2& size, const char * title)
 {
     if (!glfwInit())
         return false;

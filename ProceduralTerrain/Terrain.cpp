@@ -2,36 +2,10 @@
 
 #include <iostream>
 
-Terrain::Terrain(glm::vec2&& size)
+Terrain::Terrain(const glm::vec2& size)
     : _size(size)
 {
     generate();
-    /*
-    //for now we are just moving within standard -1...1 space verticaly and horizontaly
-    float sqrVertices[12];
-
-    for (uint32_t y = 0; y < _size.y + 1; ++y) {
-        for (uint32_t x = 0; x < (size.x * 3) + 1; x += 3) {
-            uint32_t currIndex = (_size.x + 1) * y + (x / 3);
-
-            sqrVertices[currIndex] = 
-        }
-    }
-
-    setVertices(sqrVertices, 12 * sizeof(float));
-
-
-    unsigned short sqrIndices[6] = {
-        0,
-        1,
-        2,
-        3,
-        0,
-        2
-    };
-
-    setIndices(sqrIndices, 6 * sizeof(short));
-    */
 }
 
 
@@ -45,30 +19,30 @@ void Terrain::generate() {
     float xStep              = 1.0f / _size.x;
     float yStep              = -1.0f / _size.y;
 
-    float*      gridVertices = new float[gridSize.x * gridSize.y * 3];
-    uint16_t*   gridIndices  = new uint16_t[_size.x * _size.y * 6];
+    uint32_t gridArraySize         = gridSize.x * gridSize.y * 3;
+    uint32_t gridVerticesArraySize = _size.x * _size.y * 6;
+
+    float*      gridVertices = new float[gridArraySize];
+    uint16_t*   gridIndices  = new uint16_t[gridVerticesArraySize];
 
 
-
+    // making grid's vertices
     for (uint32_t y = 0, index = 0; y < gridSize.y; ++y) {
         for (uint32_t x = 0; x < gridSize.x; ++x, index += 3) {
-            uint16_t currentIndex = y * gridSize.x + x;
-
             gridVertices[index] = x * xStep;
             gridVertices[index + 1] = y * yStep;
             gridVertices[index + 2] = 0.0f;
 
             //debug code left for now
+            uint16_t currentIndex = y * gridSize.x + x;
             std::cout << currentIndex << " :" << gridVertices[index] << ", " <<
                                           gridVertices[index + 1] << ", " <<
                                           gridVertices[index + 2] << std::endl;
         }
     }
 
-    setVertices(gridVertices, gridSize.x * gridSize.y * 3 * sizeof(float));
-
-    uint16_t ind[24];
-
+    
+    // making indices array for indexed rendering
     for (uint32_t index = 0, counter = 0, y = 0; y < _size.y; ++y, ++counter)
     {
         for (uint32_t x = 0; x < _size.x; ++x, index += 6, ++counter) {
@@ -89,6 +63,9 @@ void Terrain::generate() {
         }
     }
 
-    uint32_t indsize = _size.x * _size.y * 6 * sizeof(uint16_t);
-    setIndices(gridIndices, indsize);
+    setVertices(gridVertices, gridArraySize);
+    setIndices(gridIndices, gridVerticesArraySize);
+
+    delete[] gridVertices;
+    delete[] gridIndices;
 }

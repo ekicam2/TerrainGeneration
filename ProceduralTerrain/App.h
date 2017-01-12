@@ -20,10 +20,12 @@ public:
     ~App();
 private:
     GLFWwindow* _window;
-    Renderer* renderer;
+    glm::vec2 _windowSize;
+
+    Renderer* _renderer;
     Terrain* terrain;
 
-    bool initGLFW(const glm::vec2 & size, const char * title);
+    bool initGLFW(const char * title);
     bool initGL3W(int major, int minor);
 
     Program* debugProgram;

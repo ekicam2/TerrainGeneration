@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "Program.h"
+#include "Transform.h"
 
 class Drawable
 {
@@ -62,6 +63,7 @@ public:
 
 
 protected:
+    Transform _transform;
     Program* _program;
     GLuint   _VAO;
     GLuint   _VBO[static_cast<uint32_t>(BUFFERS::SIZE)];

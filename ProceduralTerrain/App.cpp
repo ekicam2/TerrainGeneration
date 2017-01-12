@@ -5,19 +5,20 @@
 bool App::init(const glm::vec2 & windowSize, const char * title)
 {
     _window = nullptr;
+    _windowSize = windowSize;
+    return initGLFW(title);
     debugProgram = nullptr;
-    return initGLFW(windowSize, title);
 }
 
 
 bool App::componentsInit()
 {
-    renderer = new Renderer();
-    renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
+    _renderer = new Renderer();
+    _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
 
     // everything below will be deleted
     {
-        terrain = new Terrain(glm::vec2(32,32));
+        terrain = new Terrain(glm::vec2(16,16));
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
@@ -40,9 +41,9 @@ bool App::run()
     while (!glfwWindowShouldClose(_window))
     {
         // Keep running
-        renderer->clear(0.3f, 0.3f, 1.0f);
+        _renderer->clear(0.3f, 0.3f, 1.0f);
         debugProgram->bind();
-        renderer->draw(terrain);
+        _renderer->draw(terrain);
 
         glfwSwapBuffers(_window);
         glfwPollEvents();
@@ -57,7 +58,7 @@ App::~App()
     glfwTerminate();
 }
 
-bool App::initGLFW(const glm::vec2& size, const char * title)
+bool App::initGLFW(const char * title)
 {
     if (!glfwInit())
         return false;
@@ -67,7 +68,7 @@ bool App::initGLFW(const glm::vec2& size, const char * title)
     int major = 4, minor = 5;
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
-    _window = glfwCreateWindow(size.x, size.y, title, NULL, NULL);
+    _window = glfwCreateWindow(_windowSize.x, _windowSize.y, title, NULL, NULL);
     if(_window == nullptr)
         return false;
 

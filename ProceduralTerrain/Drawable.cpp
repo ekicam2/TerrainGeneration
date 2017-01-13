@@ -2,6 +2,8 @@
 
 
 Drawable::Drawable()
+    : _program(nullptr),
+      _camera(nullptr)
 {
     glGenVertexArrays(1, &_VAO);
     glBindVertexArray(_VAO);
@@ -11,10 +13,11 @@ Drawable::Drawable()
     glBindVertexArray(0);
 }
 
-Drawable::Drawable(Program* program)
+Drawable::Drawable(Program* program, Camera* camera)
 :    Drawable()
 {
     _program = program;
+    _camera  = camera;
 }
 
 void Drawable::setVertices(float* vertices, uint32_t size)
@@ -72,11 +75,14 @@ void Drawable::setTextureCoords(float* uvs, uint32_t size)
     glBindVertexArray(0);
 }
 
-
-Drawable::~Drawable()
+glm::mat4 Drawable::getModelMatrix() const
 {
-    glDeleteBuffers(static_cast<uint32_t>(BUFFERS::SIZE), _VBO);
-    glDeleteVertexArrays(1, &_VAO);
+    return _transform.getModelMatrix();
+}
+
+void Drawable::setProgram(Program * program)
+{
+    _program = program;
 }
 
 Program * Drawable::getProgram() const
@@ -84,7 +90,23 @@ Program * Drawable::getProgram() const
     return _program;
 }
 
+void Drawable::setCamera(Camera * camera)
+{
+    _camera = camera;
+}
+
+Camera * Drawable::getCamera() const
+{
+    return _camera;
+}
+
 GLuint Drawable::getVAO() const
 {
     return _VAO;
+}
+
+Drawable::~Drawable()
+{
+    glDeleteBuffers(static_cast<uint32_t>(BUFFERS::SIZE), _VBO);
+    glDeleteVertexArrays(1, &_VAO);
 }

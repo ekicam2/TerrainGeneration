@@ -1,11 +1,16 @@
 #include "Transform.h"
 
+Transform::Transform()
+    : Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f))
+{
+}
+
 Transform::Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
     : _position(position), _rotation(rotation), _scale(scale)
 {
 }
 
-glm::mat4 Transform::getModelMatrix()
+glm::mat4 Transform::getModelMatrix() const
 {
     glm::mat4 positionMatrix = glm::translate(_position);
 

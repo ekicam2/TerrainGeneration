@@ -47,7 +47,14 @@ void Renderer::draw(const Drawable* drawable)
         break;
     }
 
-    //drawable->getProgram()->bind();
+    auto shaderProgram = drawable->getProgram();
+    
+    if (shaderProgram)
+        shaderProgram->bind();
+
+    glm::mat4 vp = drawable->getCamera()->getViewProjection();
+    glm::mat4 m  = drawable->getModelMatrix();
+    shaderProgram->setUniformMat4("mvp", vp * m);
 
     glBindVertexArray(drawable->getVAO());
     glDrawElementsBaseVertex(GL_TRIANGLES, drawable->getIndicesNum(), GL_UNSIGNED_SHORT, (void*)0, 0);

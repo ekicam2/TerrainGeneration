@@ -15,9 +15,30 @@ public:
     };
 
     Shader() = delete;
-    Shader(Type type, std::string&& fileName);
+
+    /*
+        Create a shader object.
+        
+        @param type of creating shader specified by enum Shader::Type
+        @param fileName souce shader file
+    */
+
+    Shader(Type type, const std::string& fileName);
+
+    /*
+        Compile the shader.
+
+        @return true on success false otherwise
+    */
     bool compile();
+
+    /*
+        Get shader object handler.
+
+        @return GLuint shader handler
+    */
     GLuint getHandle() const;
+
     ~Shader();
 
 private:

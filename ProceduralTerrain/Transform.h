@@ -7,10 +7,10 @@
 
 class Transform final {
 public:
-    Transform() = default;
-    Transform(const glm::vec3& position, const glm::vec3& rotation,const glm::vec3& scale = glm::vec3(1.0f));
+    Transform();
+    Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale = glm::vec3(1.0f));
 
-    glm::mat4 getModelMatrix();
+    glm::mat4 getModelMatrix() const;
 
     void setPosition(glm::vec3 position);
     void translate(glm::vec3 transform);

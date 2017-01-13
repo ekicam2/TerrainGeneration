@@ -16,10 +16,12 @@ bool App::componentsInit()
     _renderer = new Renderer();
     _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
 
+    camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.1f, 100.0f);
+
     // everything below will be deleted
     {
-        terrain = new Terrain(glm::vec2(16,16));
-
+        terrain = new Terrain(glm::vec2(16, 16));
+        terrain->setPosition({0.0f, 0.0f, 5.0f});
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
 
@@ -32,6 +34,9 @@ bool App::componentsInit()
 
         if (!debugProgram->link())
             return false;
+
+        terrain->setProgram(debugProgram);
+        terrain->setCamera(camera);
     }
     return true;
 }

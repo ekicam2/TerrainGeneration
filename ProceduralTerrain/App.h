@@ -29,5 +29,6 @@ private:
     bool initGL3W(int major, int minor);
 
     Program* debugProgram;
+    Camera* camera;
 };
 

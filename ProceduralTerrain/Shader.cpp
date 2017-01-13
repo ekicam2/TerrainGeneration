@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Shader::Shader(Type type, std::string && fileName)
+Shader::Shader(Type type, const std::string& fileName)
 : _type(type) {
 
     _handle = glCreateShader(static_cast<uint32_t>(_type));

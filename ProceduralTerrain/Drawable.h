@@ -3,11 +3,10 @@
 #include <stdint.h>
 
 #include "Program.h"
-#include "Transform.h"
+#include "Transformable.h"
 #include "Camera.h"
 
-class Drawable
-{
+class Drawable : public Transformable {
 public:
     enum class BUFFERS {
         VERTEX,
@@ -59,13 +58,6 @@ public:
         @param size of uvs array in bytes
     */
     void setTextureCoords(float* uvs, uint32_t size);
-
-    /*
-        Get model matrix used to calculate position of the object.
-
-        @return the model matrix
-    */
-    glm::mat4 getModelMatrix() const;
     
     /*
         Set a GPU program that will be used while rendering
@@ -104,13 +96,7 @@ public:
 
     ~Drawable();
 
-    void setPosition(const glm::vec3& position)
-    {
-        _transform.setPosition(position);
-    }
-
 protected:
-    Transform _transform;
     Program*  _program;
     Camera*   _camera;
     GLuint    _VAO;

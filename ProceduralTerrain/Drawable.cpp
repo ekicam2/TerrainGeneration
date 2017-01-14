@@ -75,11 +75,6 @@ void Drawable::setTextureCoords(float* uvs, uint32_t size)
     glBindVertexArray(0);
 }
 
-glm::mat4 Drawable::getModelMatrix() const
-{
-    return _transform.getModelMatrix();
-}
-
 void Drawable::setProgram(Program * program)
 {
     _program = program;

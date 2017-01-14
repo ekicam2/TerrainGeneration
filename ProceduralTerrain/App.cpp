@@ -16,12 +16,13 @@ bool App::componentsInit()
     _renderer = new Renderer();
     _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
 
-    camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.1f, 100.0f);
+    camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
 
     // everything below will be deleted
     {
         terrain = new Terrain(glm::vec2(16, 16));
-        terrain->setPosition({0.0f, 0.0f, 5.0f});
+        terrain->setPosition({-0.5f, 0.3f, 1.0f});
+        terrain->setRotation({ glm::radians(60.0f), 0.0f, 0.0f });
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
 

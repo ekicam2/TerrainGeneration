@@ -14,7 +14,7 @@ TODO:
 3 make mvp and so on [X]
     1 extend programs to send matrices to shaders [X]
     2 rewrite shaders and use mvp [X]
-        1 for now just rotate and move plane [ ]
+        1 for now just rotate and move plane [X]
 4 make perlin noise algorithm [ ]
     1 code perlin noise algorith [ ]
     2 draw it to a texture [ ]

@@ -19,7 +19,6 @@ TODO:
     1 code perlin noise algorith [ ]
     2 draw it to a texture [ ]
     3 read from the texture [ ]
-
 */
 
 #include <iostream>

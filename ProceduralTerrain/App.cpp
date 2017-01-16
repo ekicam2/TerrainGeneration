@@ -14,28 +14,28 @@ bool App::init(const glm::vec2 & windowSize, const char * title)
 bool App::componentsInit()
 {
     _renderer = new Renderer();
-    _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
-
-    camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
+    _renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
 
     // everything below will be deleted
     {
+        debugProgram = new Program();
+        camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
         terrain = new Terrain(glm::vec2(16, 16));
-        terrain->setPosition({-0.5f, 0.3f, 1.0f});
-        terrain->setRotation({ glm::radians(60.0f), 0.0f, 0.0f });
+
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
-
+        
         if (!s1.compile() || !s2.compile())
             return false;
 
-        debugProgram = new Program();
         debugProgram->attachShader(s1.getHandle());
         debugProgram->attachShader(s2.getHandle());
 
         if (!debugProgram->link())
             return false;
 
+        terrain->setPosition({-0.5f, 0.3f, 1.0f});
+        terrain->setRotation({ glm::radians(60.0f), 0.0f, 0.0f });
         terrain->setProgram(debugProgram);
         terrain->setCamera(camera);
     }

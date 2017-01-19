@@ -16,7 +16,7 @@ TODO:
     2 rewrite shaders and use mvp [X]
         1 for now just rotate and move plane [X]
 4 make perlin noise algorithm [ ]
-    1 code perlin noise algorith [ ]
+    1 code perlin noise algorith [X]
     2 draw it to a texture [ ]
     3 read from the texture [ ]
 */

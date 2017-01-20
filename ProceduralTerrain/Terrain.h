@@ -2,6 +2,8 @@
 #include "Drawable.h"
 #include <glm\vec2.hpp>
 
+class Heightmap;
+
 class Terrain : public Drawable
 {
 public:
@@ -12,13 +14,24 @@ public:
 
         @param size The size of tiled terrain
     */
-    Terrain(const glm::vec2& size);
+    Terrain(const glm::uvec2& size);
+
+    /*
+        Generete flat plane based on gived size.
+
+        @param size The size of tiled terrain
+        @param heightmap 
+    */
+    Terrain(const glm::uvec2& size, Heightmap heightmap);
+
+    ~Terrain() = default;
+
+protected:
     void generate();
-    // TODO: heightmap 
-    ~Terrain();
+//    void generate();
 
 private:
-    glm::vec2 _size;
+    glm::uvec2 _size;
 
 };
 

@@ -3,6 +3,7 @@
 #include <numeric>
 #include <algorithm>
 #include <random>
+#include <math.h>
 
 #include "Utilities.h"
 
@@ -33,6 +34,8 @@ PerlinNoise::PerlinNoise()
         107,49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
         138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180 
     };
+
+    _permutation.insert(_permutation.end(), _permutation.begin(), _permutation.end());
 }
 
 PerlinNoise::PerlinNoise(uint32_t seed)
@@ -50,7 +53,7 @@ PerlinNoise::~PerlinNoise()
 {
 }
 
-double PerlinNoise::noise(double x, double y, double z)
+double PerlinNoise::noise(double x, double y, double z) const
 {
     int X = (int)floor(x) & 255;
     int Y = (int)floor(y) & 255;
@@ -71,25 +74,30 @@ double PerlinNoise::noise(double x, double y, double z)
     int BA  = _permutation[B] + Z;
     int BB  = _permutation[B + 1] + Z;
 
-    return lerp(w, lerp(v, lerp(u, grad(_permutation[AA], x, y, z),
-                                         grad(_permutation[BA], x - 1, y, z)),
-                                 lerp(u, grad(_permutation[AB], x, y - 1, z), 
-                                         grad(_permutation[BB], x - 1, y - 1, z))), 
-                         lerp(v, lerp(u, grad(_permutation[AA + 1], x, y, z - 1), 
-                                         grad(_permutation[BA + 1], x - 1, y, z - 1)), 
-                                 lerp(u, grad(_permutation[AB + 1], x, y - 1, z - 1), 
-                                         grad(_permutation[BB + 1], x - 1, y - 1, z - 1))));
+    return lerp(w, lerp(v, lerp(u, grad(_permutation[AA]    , x,     y,     z     ),
+                                   grad(_permutation[BA]    , x - 1, y,     z     )),
+                           lerp(u, grad(_permutation[AB]    , x,     y - 1, z     ), 
+                                   grad(_permutation[BB]    , x - 1, y - 1, z     ))), 
+                   lerp(v, lerp(u, grad(_permutation[AA + 1], x,     y,     z - 1 ), 
+                                   grad(_permutation[BA + 1], x - 1, y,     z - 1 )), 
+                           lerp(u, grad(_permutation[AB + 1], x,     y - 1, z - 1 ), 
+                                   grad(_permutation[BB + 1], x - 1, y - 1, z - 1 ))));
 }
 
-double PerlinNoise::fade(double t)
+double PerlinNoise::fade(double t) const
 {
     return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
-double PerlinNoise::grad(int hash, double x, double y, double z)
+double PerlinNoise::grad(int hash, double x, double y, double z) const
 {
     int h = hash & 15;
     double u = h < 8 ? x : y, v = h < 4 ? y : h == 12 || h == 14 ? x : z;
 
     return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
+}
+
+double PerlinNoise::lerp(double t, double a, double b) const
+{
+    return ::lerp(a, b, t);
 }

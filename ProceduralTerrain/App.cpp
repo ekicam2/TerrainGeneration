@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Shader.h"
-
+#include "Heightmap.h"
+#include "PerlinNoise.h"
 
 bool App::init(const glm::vec2 & windowSize, const char * title)
 {
@@ -14,13 +15,15 @@ bool App::init(const glm::vec2 & windowSize, const char * title)
 bool App::componentsInit()
 {
     _renderer = new Renderer();
-    _renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
+    _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
 
     // everything below will be deleted
     {
         debugProgram = new Program();
         camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
-        terrain = new Terrain(glm::vec2(16, 16));
+        terrain = new Terrain(glm::vec2(126, 126));
+
+        Heightmap hmap("cos.bmp", { 600, 600 }, PerlinNoise());
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");

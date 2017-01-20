@@ -5,15 +5,18 @@
 using namespace std;
 
 Shader::Shader(Type type, const std::string& fileName)
-: _type(type) {
+    : _type(type) 
+{
 
     _handle = glCreateShader(static_cast<uint32_t>(_type));
 
     auto file = ifstream(fileName);
     string line;
     string source = "";
-    if (file.is_open()) {
-        while (getline(file, line)) {
+    if (file.is_open()) 
+    {
+        while (getline(file, line)) 
+        {
             source.append(line + "\n");
         }
     }

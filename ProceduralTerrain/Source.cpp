@@ -17,8 +17,16 @@ TODO:
         1 for now just rotate and move plane [X]
 4 make perlin noise algorithm [ ]
     1 code perlin noise algorith [X]
-    2 draw it to a texture [ ]
-    3 read from the texture [ ]
+    2 draw it to a texture [X]
+    3 read from the texture [X]
+    4 make terrain "noisy" while creating [ ]
+
+5 I/O menagment
+6 Water plane
+7 Fog
+8 Lighting
+9 Shadow map
+10 UnderWater (post processing?)
 */
 
 #include <iostream>

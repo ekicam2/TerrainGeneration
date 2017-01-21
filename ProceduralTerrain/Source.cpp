@@ -20,7 +20,6 @@ TODO:
     2 draw it to a texture [X]
     3 read from the texture [X]
     4 make terrain "noisy" while creating [ ]
-
 5 I/O menagment
 6 Water plane
 7 Fog

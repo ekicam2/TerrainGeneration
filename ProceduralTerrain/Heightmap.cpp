@@ -26,7 +26,7 @@ glm::uvec2 & Heightmap::getSize() const
     return glm::uvec2(_bitmap->width(), _bitmap->height());
 }
 
-uint8_t Heightmap::getWorldHeight(uint32_t x, uint32_t y)
+uint8_t Heightmap::getWorldHeight(uint32_t x, uint32_t y) const
 {
     rgb_t value;
     _bitmap->get_pixel(x, y, value);
@@ -55,7 +55,7 @@ void Heightmap::create(const std::string& fileName, const glm::uvec2& size, cons
             double y = (double)i / (double)size.y;
             double x = (double)j / (double)size.x;
 
-            uint8_t value = mapValue(perlin.noise(10 * x, 10 * y, 0.8), -1.0, 1.0, 0, 255);
+            uint8_t value = mapValue(perlin.noise(10 * x, 10 * y, 0.8), -1.0, 1.0, 0.0, 255.0);
             
             rgb_t color;
             color.red = color.green = color.blue = value;

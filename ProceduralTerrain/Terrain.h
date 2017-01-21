@@ -22,13 +22,13 @@ public:
         @param size The size of tiled terrain
         @param heightmap 
     */
-    Terrain(const glm::uvec2& size, Heightmap heightmap);
+    Terrain(const glm::uvec2& size, Heightmap* heightmap);
 
     ~Terrain() = default;
 
 protected:
     void generate();
-//    void generate();
+    void generate(Heightmap* heightmap);
 
 private:
     glm::uvec2 _size;

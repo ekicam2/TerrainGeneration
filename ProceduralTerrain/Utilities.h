@@ -47,8 +47,8 @@ T lerp(T val1, T val2, T weight)
     @param  stop2  upper bound of the value's target range
     @return remapped number
 */
-template <typename T, typename K, typename V>
-V mapValue(T value, K start1, K stop1, V start2, V stop2) 
+template <typename T, typename K>
+K mapValue(T value, K start1, K stop1, K start2, K stop2) 
 {
     return ((value - start1) / (stop1 - start1))*(stop2 - start2) + start2;
 }

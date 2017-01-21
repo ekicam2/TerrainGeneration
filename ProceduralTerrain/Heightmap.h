@@ -19,7 +19,7 @@ public:
     uint32_t getHeight() const;
     glm::uvec2& getSize() const;
 
-    uint8_t getWorldHeight(uint32_t x, uint32_t y);
+    uint8_t getWorldHeight(uint32_t x, uint32_t y) const;
 
 protected:
     bool open(const std::string& fileName);

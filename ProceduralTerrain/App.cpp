@@ -21,9 +21,8 @@ bool App::componentsInit()
     {
         debugProgram = new Program();
         camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
-        terrain = new Terrain(glm::vec2(126, 126));
+        terrain = new Terrain(glm::vec2(126, 126), new Heightmap("heightmap.bmp", { 600, 600 }, PerlinNoise(457)));
 
-        Heightmap hmap("cos.bmp", { 600, 600 }, PerlinNoise());
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");

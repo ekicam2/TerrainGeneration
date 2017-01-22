@@ -15,14 +15,13 @@ bool App::init(const glm::vec2 & windowSize, const char * title)
 bool App::componentsInit()
 {
     _renderer = new Renderer();
-    _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
+    _renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
 
     // everything below will be deleted
     {
-        debugProgram = new Program();
-        camera = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
-        terrain = new Terrain(glm::vec2(126, 126), new Heightmap("heightmap.bmp", { 600, 600 }, PerlinNoise(457)));
-
+        debugProgram    = new Program();
+        camera          = new Camera(glm::vec3(0,0,0), glm::radians(45.0f), _windowSize.x / _windowSize.y, 0.001f, 100.0f);
+        terrain         = new Terrain(glm::vec2(126, 126), new Heightmap("heightmap.bmp", { 600, 600 }, PerlinNoise(8123)));
 
         Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
         Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");

@@ -14,13 +14,14 @@ TODO:
 3 make mvp and so on [X]
     1 extend programs to send matrices to shaders [X]
     2 rewrite shaders and use mvp [X]
-        1 for now just rotate and move plane [X]
-4 make perlin noise algorithm [ ]
+    3 for now just rotate and move plane [X]
+4 make perlin noise algorithm [X]
     1 code perlin noise algorith [X]
     2 draw it to a texture [X]
     3 read from the texture [X]
-    4 make terrain "noisy" while creating [ ]
+    4 make terrain "noisy" while creating [X]
 5 I/O menagment
+
 6 Water plane
 7 Fog
 8 Lighting

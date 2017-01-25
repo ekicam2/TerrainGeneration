@@ -14,8 +14,9 @@ public:
     virtual ~Scene();
 
     bool init(const glm::uvec2& winSize);
-    void draw(Renderer* renderer);
 
+    void processInput(int key, int action, int mods);
+    void draw(Renderer* renderer);
 
 private:
     Terrain* _terrain;

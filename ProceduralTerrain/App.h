@@ -7,11 +7,7 @@
 #include "Renderer.h"
 #include "Scene.h"
 
-/*
-    Terrain, Program and Camera should be placed in a Scene class or something like that.
-    Anyway for now it's not needed as long as program does what it has to, 
-        so for simplicity it will be placed here and naming convention will be broken for them. (better than TODO: cause everyone can see that there is something wrong in here)
-*/
+
 class App final {
 public:
     App() = default;
@@ -19,6 +15,8 @@ public:
     bool componentsInit();
     bool run();
 
+    void processInput();
+    void render();
 
     ~App();
 private:
@@ -28,6 +26,8 @@ private:
     Renderer* _renderer;
 
     Scene scene;
+
+    void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
     bool initGLFW(const char * title);
     bool initGL3W(int major, int minor);

@@ -11,6 +11,9 @@ public:
 
     glm::mat4 getViewProjection() const;
 
+    void setPosition(const glm::vec3& position);
+    void translate(const glm::vec3& position);
+
 private:
     glm::mat4 _projection;
     glm::vec3 _position;

@@ -7,14 +7,18 @@ bool App::init(const glm::vec2 & windowSize, const char * title)
 {
     _window = nullptr;
     _windowSize = windowSize;
-    return initGLFW(title);
+
+    if (!initGLFW(title))
+        return false;
+
+    return true;
 }
 
 
 bool App::componentsInit()
 {
     _renderer = new Renderer();
-    _renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
+    _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
 
     if (!scene.init(_windowSize))
         return false;
@@ -26,21 +30,35 @@ bool App::run()
 {
     while (!glfwWindowShouldClose(_window))
     {
-        // Keep running
-        _renderer->clear(0.3f, 0.3f, 1.0f);
-        scene.draw(_renderer);
-
-        glfwSwapBuffers(_window);
-        glfwPollEvents();
+        processInput();
+        render();
     }
 
     return 0;
+}
+
+void App::processInput()
+{
+    glfwPollEvents();
+}
+
+void App::render()
+{
+    _renderer->clear(0.3f, 0.3f, 1.0f);
+    scene.draw(_renderer);
+
+    glfwSwapBuffers(_window);
 }
 
 App::~App()
 {
     glfwDestroyWindow(_window);
     glfwTerminate();
+}
+
+void App::keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    scene.processInput(key, action, mods);
 }
 
 bool App::initGLFW(const char * title)
@@ -69,6 +87,17 @@ bool App::initGLFW(const char * title)
     glViewport(0, 0, w, h);
 
     glfwSwapInterval(1);
+
+    // magic like in most C APIS
+    glfwSetWindowUserPointer(_window, this);
+    GLFWkeyfun keyboardCallback = [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        App* self = static_cast<App*>(glfwGetWindowUserPointer(window));
+        self->keyboardCallback(window, key, scancode, action, mods);
+    };
+
+    glfwSetKeyCallback(_window, keyboardCallback);
+
+    //glfwSetInputMode(_window, GLFW_STICKY_KEYS, 1);
 
     return true;
 }

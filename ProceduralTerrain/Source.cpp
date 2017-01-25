@@ -20,14 +20,12 @@ TODO:
     2 draw it to a texture [X]
     3 read from the texture [X]
     4 make terrain "noisy" while creating [X]
-5 I/O menagment
-    1 make scene or something like that what will gather input interface
-    2 make scene manager that will be member of App class
-    3 gather input from top to bottom (heigher layer should be able to stop input processing in the effect lower won't get input at all) [cocos2d-x]!!!
-6 Water plane
-    1 make flat plane
-    2 shaders, shaders, shaders
-    3 debug
+5 I/O menagment [X]
+    1 just make scene class and let it swallow all inputs and process em [X]
+6 Water plane [ ]
+    1 make flat plane [ ]
+    2 shaders, shaders, shaders [ ]
+    3 debug [ ]
 7 Fog
     1 has to read about it, on nvidia site is pretty cool article about fog and fog math
 8 Lighting

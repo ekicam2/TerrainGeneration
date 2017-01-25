@@ -1,5 +1,4 @@
 #include "Scene.h"
-
 #include "Terrain.h"
 #include "Camera.h"
 #include "Program.h"
@@ -7,6 +6,8 @@
 #include "PerlinNoise.h"
 #include "Shader.h"
 #include "Renderer.h"
+
+#include <GLFW\glfw3.h>
 
 Scene::Scene()
     : _terrain(nullptr), 
@@ -23,9 +24,10 @@ Scene::~Scene()
     auto it  = _programs.begin();
     auto end = _programs.end();
     
-    for (; it != end; ++it) {
+    while (it != end)
+    {
         delete it->second;
-        _programs.erase(it->first);
+        it = _programs.erase(it);
     }
 }
 
@@ -55,6 +57,23 @@ bool Scene::init(const glm::uvec2 & winSize)
     _terrain->setCamera(_camera);
     
     return true;
+}
+
+void Scene::processInput(int key, int action, int mods)
+{
+    float step = 0.008;
+
+    if (key == GLFW_KEY_W && action == GLFW_REPEAT)
+        _camera->translate({ 0, 0, step });
+
+    if (key == GLFW_KEY_S && action == GLFW_REPEAT)
+        _camera->translate({ 0, 0, -step });
+    
+    if (key == GLFW_KEY_A && action == GLFW_REPEAT)
+        _camera->translate({ step, 0, 0 });
+
+    if (key == GLFW_KEY_D && action == GLFW_REPEAT)
+        _camera->translate({ -step, 0, 0 });
 }
 
 void Scene::draw(Renderer * renderer)

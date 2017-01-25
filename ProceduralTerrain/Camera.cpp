@@ -12,3 +12,13 @@ glm::mat4 Camera::getViewProjection() const
 {
     return _projection * glm::lookAt(_position, _position + _forward, _up);
 }
+
+void Camera::setPosition(const glm::vec3 & position)
+{
+    _position = position;
+}
+
+void Camera::translate(const glm::vec3 & position)
+{
+    _position += position;
+}

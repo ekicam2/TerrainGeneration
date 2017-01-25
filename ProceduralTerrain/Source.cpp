@@ -23,7 +23,11 @@ TODO:
 5 I/O menagment [X]
     1 just make scene class and let it swallow all inputs and process em [X]
 6 Water [X]
+<<<<<<< HEAD
     1 make flat plane [X]
+=======
+    1 make flat plane [ ]
+>>>>>>> 25afcc38f41cc39c857c382f76adc508278569f5
     2 shaders, shaders, shaders [ ]
     3 debug [ ]
 8 Lighting

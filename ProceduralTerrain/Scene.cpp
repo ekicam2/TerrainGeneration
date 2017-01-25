@@ -102,7 +102,6 @@ void Scene::processInput(int key, int action, int mods)
 
 void Scene::draw(Renderer * renderer)
 {
-    renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
     renderer->draw(_terrain);
     renderer->draw(_waterPlane);
 }

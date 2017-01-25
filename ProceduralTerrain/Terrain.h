@@ -10,24 +10,17 @@ public:
     Terrain() = delete;
 
     /*
-        Generete flat plane based on gived size.
+        Generate terrain based of height ma,
+        otherwise generate a flat plane.
 
-        @param size The size of tiled terrain
-    */
-    Terrain(const glm::uvec2& size);
-
-    /*
-        Generete flat plane based on gived size.
-
-        @param size The size of tiled terrain
+        @param size amount of tiles
         @param heightmap 
     */
-    Terrain(const glm::uvec2& size, Heightmap* heightmap);
+    Terrain(const glm::uvec2& size, Heightmap* heightmap = nullptr);
 
     ~Terrain() = default;
 
 protected:
-    void generate();
     void generate(Heightmap* heightmap);
 
 private:

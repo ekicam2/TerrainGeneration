@@ -21,12 +21,27 @@ TODO:
     3 read from the texture [X]
     4 make terrain "noisy" while creating [X]
 5 I/O menagment
-
+    1 make scene or something like that what will gather input interface
+    2 make scene manager that will be member of App class
+    3 gather input from top to bottom (heigher layer should be able to stop input processing in the effect lower won't get input at all) [cocos2d-x]!!!
 6 Water plane
+    1 make flat plane
+    2 shaders, shaders, shaders
+    3 debug
 7 Fog
+    1 has to read about it, on nvidia site is pretty cool article about fog and fog math
 8 Lighting
-9 Shadow map
+    1 dynamic lighting
+    2 depending on config or something (has to be reinvented)
+    3 prepare shaders to receive light sources
+    4 compute it and make it works
+9 Shadows
+    1 pick one solution shadow maps or self shadowing with shadow contact
+    2 depending on choice read about and code!
 10 UnderWater (post processing?)
+    1 calculate where the camera is above, under or in middle
+    2 compute it a bit
+    3 shaders, shaders
 */
 
 #include <iostream>

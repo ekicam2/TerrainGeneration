@@ -6,6 +6,7 @@
     @param value incoming value to be checked
     @param min lower bound of the range
     @param max upper bound of the range
+    @return value in passed bounds
 */
 template <typename T>
 float clamp(T value, T min, T max)
@@ -29,6 +30,7 @@ float clamp(T value, T min, T max)
     @param val1 first value
     @param val2 second value
     @param weight used for interpolation
+    @return result of linear interpolation
 */
 template <typename T>
 T lerp(T val1, T val2, T weight)

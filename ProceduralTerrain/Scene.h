@@ -7,6 +7,7 @@ class Terrain;
 class Camera;
 class Program;
 class Renderer;
+class Water;
 
 class Scene {
 public:
@@ -19,7 +20,8 @@ public:
     void draw(Renderer* renderer);
 
 private:
-    Terrain* _terrain;
-    Camera*  _camera;
     std::map<std::string, Program*> _programs;
+    Camera*                         _camera;
+    Terrain*                        _terrain;
+    Water*                          _waterPlane;
 };

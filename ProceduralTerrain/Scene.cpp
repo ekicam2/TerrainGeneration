@@ -6,6 +6,7 @@
 #include "PerlinNoise.h"
 #include "Shader.h"
 #include "Renderer.h"
+#include "Water.h"
 
 #include <GLFW\glfw3.h>
 
@@ -36,6 +37,7 @@ bool Scene::init(const glm::uvec2 & winSize)
     _camera = new Camera(glm::vec3(0, 0, 0), glm::radians(45.0f), winSize.x / winSize.y, 0.001f, 100.0f);
     _programs.insert(std::make_pair("terrainProgram", new Program()));
     _terrain = new Terrain(glm::vec2(126, 126), new Heightmap("heightmap.bmp", { 600, 600 }, PerlinNoise(8123)));
+    _waterPlane = new Water(glm::uvec2(125, 125));
     
     auto terrainProgram = _programs.find("terrainProgram")->second;
 
@@ -51,10 +53,14 @@ bool Scene::init(const glm::uvec2 & winSize)
     if (!_programs.find("terrainProgram")->second->link())
         return false;
 
-    _terrain->setPosition({ -0.5f, 0.3f, 1.0f });
-    _terrain->setRotation({ glm::radians(60.0f), 0.0f, 0.0f });
+    _terrain->setPosition({ -0.5f, 0.0f, 1.0f });
+    _terrain->setRotation({ glm::radians(90.0f), 0.0f, 0.0f });
     _terrain->setProgram(terrainProgram);
     _terrain->setCamera(_camera);
+
+    _waterPlane->setPosition({ -0.5f, 0.02f, 1.0f });
+    _waterPlane->setProgram(terrainProgram);
+    _waterPlane->setCamera(_camera);
     
     return true;
 }
@@ -78,5 +84,8 @@ void Scene::processInput(int key, int action, int mods)
 
 void Scene::draw(Renderer * renderer)
 {
+    renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
     renderer->draw(_terrain);
+    renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
+    renderer->draw(_waterPlane);
 }

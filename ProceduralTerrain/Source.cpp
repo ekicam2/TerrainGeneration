@@ -22,8 +22,8 @@ TODO:
     4 make terrain "noisy" while creating [X]
 5 I/O menagment [X]
     1 just make scene class and let it swallow all inputs and process em [X]
-6 Water plane [ ]
-    1 make flat plane [ ]
+6 Water [X]
+    1 make flat plane [X]
     2 shaders, shaders, shaders [ ]
     3 debug [ ]
 7 Fog

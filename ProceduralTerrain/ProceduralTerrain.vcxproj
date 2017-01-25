@@ -161,6 +161,7 @@
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Transformable.h" />

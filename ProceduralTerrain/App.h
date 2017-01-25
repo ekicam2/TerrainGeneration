@@ -4,10 +4,8 @@
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
 
-#include "Program.h"
 #include "Renderer.h"
-#include "Drawable.h"
-#include "Terrain.h"
+#include "Scene.h"
 
 /*
     Terrain, Program and Camera should be placed in a Scene class or something like that.
@@ -28,12 +26,10 @@ private:
     glm::vec2 _windowSize;
 
     Renderer* _renderer;
-    Terrain* terrain;
+
+    Scene scene;
 
     bool initGLFW(const char * title);
     bool initGL3W(int major, int minor);
-
-    Program* debugProgram;
-    Camera* camera;
 };
 

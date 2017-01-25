@@ -26,13 +26,13 @@ TODO:
     1 make flat plane [X]
     2 shaders, shaders, shaders [ ]
     3 debug [ ]
-7 Fog
-    1 has to read about it, on nvidia site is pretty cool article about fog and fog math
 8 Lighting
     1 dynamic lighting
     2 depending on config or something (has to be reinvented)
     3 prepare shaders to receive light sources
     4 compute it and make it works
+7 Fog
+    1 has to read about it, on nvidia site is pretty cool article about fog and fog math
 9 Shadows
     1 pick one solution shadow maps or self shadowing with shadow contact
     2 depending on choice read about and code!

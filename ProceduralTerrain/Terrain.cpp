@@ -14,7 +14,7 @@ Terrain::Terrain(const glm::uvec2 & size, Heightmap* heightmap)
 void Terrain::generate(Heightmap* heightmap)
 {
     glm::uvec2 gridSize = { _size.x + 1, _size.y + 1 };
-    float xStep = 1.0f / _size.x;
+    float xStep =  1.0f / _size.x;
     float yStep = -1.0f / _size.y;
 
     uint32_t gridArraySize = gridSize.x * gridSize.y * 3;
@@ -34,8 +34,8 @@ void Terrain::generate(Heightmap* heightmap)
                 mappedTerrainHeight = mapValue(heightmap->getWorldHeight(x, y), 0.0f, 255.0f, -0.2f, 0.2f);
             
             gridVertices[index]         = x * xStep;
-            gridVertices[index + 1]     = y * yStep;
-            gridVertices[index + 2]     = mappedTerrainHeight;
+            gridVertices[index + 1]     = mappedTerrainHeight;
+            gridVertices[index + 2]     = y * yStep;
         }
     }
 
@@ -51,7 +51,6 @@ void Terrain::generate(Heightmap* heightmap)
             gridIndices[index + 3] = counter;
             gridIndices[index + 4] = counter + gridSize.x + 1;
             gridIndices[index + 5] = counter + 1;
-
         }
     }
 

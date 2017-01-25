@@ -35,31 +35,49 @@ Scene::~Scene()
 bool Scene::init(const glm::uvec2 & winSize)
 {
     _camera = new Camera(glm::vec3(0, 0, 0), glm::radians(45.0f), winSize.x / winSize.y, 0.001f, 100.0f);
-    _programs.insert(std::make_pair("terrainProgram", new Program()));
-    _terrain = new Terrain(glm::vec2(126, 126), new Heightmap("heightmap.bmp", { 600, 600 }, PerlinNoise(8123)));
+    _terrain = new Terrain(glm::vec2(200, 200), new Heightmap("heightmap.bmp", { 600, 600 }, PerlinNoise(8123)));
     _waterPlane = new Water(glm::uvec2(125, 125));
     
+    // terrain shader
+    _programs.insert(std::make_pair("terrainProgram", new Program()));
     auto terrainProgram = _programs.find("terrainProgram")->second;
 
-    Shader s1(Shader::Type::VERTEX, "./Shaders/debug.vs");
-    Shader s2(Shader::Type::FRAGMENT, "./Shaders/debug.fs");
+    Shader ts1(Shader::Type::VERTEX, "./Shaders/terrainShader.vs");
+    Shader ts2(Shader::Type::FRAGMENT, "./Shaders/terrainShader.fs");
 
-    if (!s1.compile() || !s2.compile())
+    if (!ts1.compile() || !ts2.compile())
         return false;
 
-    terrainProgram->attachShader(s1.getHandle());
-    terrainProgram->attachShader(s2.getHandle());
+    terrainProgram->attachShader(ts1.getHandle());
+    terrainProgram->attachShader(ts2.getHandle());
 
     if (!_programs.find("terrainProgram")->second->link())
         return false;
 
+    // water shader
+    _programs.insert(std::make_pair("waterProgram", new Program()));
+    auto waterProgram = _programs.find("waterProgram")->second;
+
+    Shader ws1(Shader::Type::VERTEX, "./Shaders/waterShader.vs");
+    Shader ws2(Shader::Type::FRAGMENT, "./Shaders/waterShader.fs");
+
+    if (!ws1.compile() || !ws2.compile())
+        return false;
+
+    waterProgram->attachShader(ws1.getHandle());
+    waterProgram->attachShader(ws2.getHandle());
+
+    if (!_programs.find("waterProgram")->second->link())
+        return false;
+
     _terrain->setPosition({ -0.5f, 0.0f, 1.0f });
-    _terrain->setRotation({ glm::radians(90.0f), 0.0f, 0.0f });
+    _terrain->setRotation({ glm::radians(-30.0f), 0.0f, 0.0f });
     _terrain->setProgram(terrainProgram);
     _terrain->setCamera(_camera);
 
-    _waterPlane->setPosition({ -0.5f, 0.02f, 1.0f });
-    _waterPlane->setProgram(terrainProgram);
+    _waterPlane->setPosition({ -0.5f, -0.02f, 1.0f });
+    _waterPlane->setRotation({ glm::radians(-30.0f), 0.0f, 0.0f });
+    _waterPlane->setProgram(waterProgram);
     _waterPlane->setCamera(_camera);
     
     return true;
@@ -84,8 +102,7 @@ void Scene::processInput(int key, int action, int mods)
 
 void Scene::draw(Renderer * renderer)
 {
-    renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
-    renderer->draw(_terrain);
     renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
+    renderer->draw(_terrain);
     renderer->draw(_waterPlane);
 }

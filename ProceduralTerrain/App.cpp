@@ -44,7 +44,7 @@ void App::processInput()
 
 void App::render()
 {
-    _renderer->clear(0.3f, 0.3f, 1.0f);
+    _renderer->clear(0.6f, 0.1f, 0.1f);
     scene.draw(_renderer);
 
     glfwSwapBuffers(_window);

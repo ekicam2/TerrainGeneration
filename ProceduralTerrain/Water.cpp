@@ -16,7 +16,7 @@ Water::~Water()
 void Water::generate()
 {
     glm::uvec2 gridSize = { _size.x + 1, _size.y + 1 };
-    float xStep = 1.0f / _size.x;
+    float xStep =  1.0f / _size.x;
     float yStep = -1.0f / _size.y;
 
     uint32_t gridArraySize = gridSize.x * gridSize.y * 3;

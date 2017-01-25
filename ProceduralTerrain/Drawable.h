@@ -12,6 +12,7 @@ public:
         VERTEX,
         INDEX,
         COLOR,
+        NORMAL,
         TEXTURE_COORD,
         SIZE
     };
@@ -51,6 +52,14 @@ public:
     */
     void setColor(float* colors, uint32_t size);
 
+    /*
+        Fill VBO with normal vector data
+
+        @param an array of normals per vertex
+        @param size of colors array in bytes
+    */
+    void setNormals(float* normals, uint32_t size);
+    
     /*
         Fills VBO with UVs data.
 

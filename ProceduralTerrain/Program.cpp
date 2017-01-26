@@ -54,6 +54,33 @@ void Program::setUniformMat4(const std::string & name, const glm::mat4 & matrix)
     }
 }
 
+void Program::setUniformSampler2D(const std::string & name, Texture * texture)
+{
+    this->bind();
+    auto location = getUniformLocation(name);
+
+    if (location != -1)
+    {
+        auto it = this->_textures.find(location);
+
+        if (it != this->_textures.end())
+        {
+            it->second = texture;
+        }
+        else
+        {
+            static const int32_t max = this->getMaxTextureUnits();
+
+            if (this->_textures.size() > (uint32_t)max)
+            {
+                return;
+            }
+
+            this->_textures[location] = texture;
+        }
+    }
+}
+
 GLint Program::getUniformLocation(const std::string & name)
 {
     auto it = _uniformLocationCache.find(name.c_str());
@@ -85,4 +112,11 @@ GLuint Program::getHandle() const
 Program::~Program()
 {
     glDeleteProgram(_handler);
+}
+
+GLint Program::getMaxTextureUnits()
+{
+    GLint returner;
+    glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &returner);
+    return returner;
 }

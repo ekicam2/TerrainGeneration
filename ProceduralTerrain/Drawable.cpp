@@ -68,7 +68,7 @@ void Drawable::setNormals(float * normals, uint32_t size)
     glBindVertexArray(_VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, _VBO[static_cast<uint32_t>(BUFFERS::COLOR)]);
-    glBufferData(GL_ARRAY_BUFFER, size, normals, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), normals, GL_STATIC_DRAW);
     glEnableVertexAttribArray(3);
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 

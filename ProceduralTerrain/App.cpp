@@ -18,7 +18,7 @@ bool App::init(const glm::vec2 & windowSize, const char * title)
 bool App::componentsInit()
 {
     _renderer = new Renderer();
-    _renderer->setRenderMode(Renderer::RENDER_MODES::WIRE_FRAME);
+    _renderer->setRenderMode(Renderer::RENDER_MODES::SHADED);
 
     if (!scene.init(_windowSize))
         return false;
@@ -88,7 +88,9 @@ bool App::initGLFW(const char * title)
 
     glfwSwapInterval(1);
 
-    // magic like in most C APIS
+    // magic like in most C APIS:
+    // set anything you want to an void* param
+    // and then just cast to whatever you have bound
     glfwSetWindowUserPointer(_window, this);
     GLFWkeyfun keyboardCallback = [](GLFWwindow* window, int key, int scancode, int action, int mods) {
         App* self = static_cast<App*>(glfwGetWindowUserPointer(window));
@@ -96,8 +98,6 @@ bool App::initGLFW(const char * title)
     };
 
     glfwSetKeyCallback(_window, keyboardCallback);
-
-    //glfwSetInputMode(_window, GLFW_STICKY_KEYS, 1);
 
     return true;
 }

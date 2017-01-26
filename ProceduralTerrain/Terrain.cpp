@@ -1,28 +1,27 @@
 #include "Terrain.h"
-
-#include <iostream>
-
 #include "Heightmap.h"
 #include "Utilities.h"
 
+#include <iostream>
+
 Terrain::Terrain(const glm::uvec2 & size, Heightmap* heightmap)
-    : _size(size)
+    : _size(size),
+      _heightmap(heightmap)
 {
-    generate(heightmap);
+    generate();
 }
 
-void Terrain::generate(Heightmap* heightmap)
+void Terrain::generate()
 {
     glm::uvec2 gridSize = { _size.x + 1, _size.y + 1 };
     float xStep =  1.0f / _size.x;
     float yStep = -1.0f / _size.y;
 
-    uint32_t gridArraySize = gridSize.x * gridSize.y * 3;
-    uint32_t gridVerticesArraySize = _size.x * _size.y * 6;
+    uint32_t gridVerticesArraySize  = gridSize.x * gridSize.y * 3;
+    uint32_t gridIndicesArraySize   = _size.x    * _size.y    * 6;
 
-    float*      gridVertices = new float[gridArraySize];
-    uint16_t*   gridIndices = new uint16_t[gridVerticesArraySize];
-
+    float*    gridVertices         = new float[gridVerticesArraySize];
+    uint16_t* gridIndices          = new uint16_t[gridIndicesArraySize];
 
     // making grid's vertices
     for (uint32_t y = 0, index = 0; y < gridSize.y; ++y)
@@ -30,15 +29,14 @@ void Terrain::generate(Heightmap* heightmap)
         for (uint32_t x = 0; x < gridSize.x; ++x, index += 3)
         {
             float mappedTerrainHeight = 0.0f;
-            if(heightmap)
-                mappedTerrainHeight = mapValue(heightmap->getWorldHeight(x, y), 0.0f, 255.0f, -0.2f, 0.2f);
+            if(_heightmap)
+                mappedTerrainHeight = mapValue(_heightmap->getWorldHeight(x, y), 0.0f, 255.0f, -0.2f, 0.2f);
             
             gridVertices[index]         = x * xStep;
             gridVertices[index + 1]     = mappedTerrainHeight;
             gridVertices[index + 2]     = y * yStep;
         }
     }
-
 
     // making indices array for indexed rendering
     for (uint32_t index = 0, counter = 0, y = 0; y < _size.y; ++y, ++counter)
@@ -54,8 +52,8 @@ void Terrain::generate(Heightmap* heightmap)
         }
     }
 
-    setVertices(gridVertices, gridArraySize);
-    setIndices(gridIndices, gridVerticesArraySize);
+    setVertices(gridVertices, gridVerticesArraySize);
+    setIndices(gridIndices, gridIndicesArraySize);
 
     delete[] gridVertices;
     delete[] gridIndices;

@@ -25,7 +25,6 @@ void Water::generate()
     float*      gridVertices = new float[gridArraySize];
     uint16_t*   gridIndices = new uint16_t[gridVerticesArraySize];
 
-
     // making grid's vertices
     for (uint32_t y = 0, index = 0; y < gridSize.y; ++y)
     {
@@ -36,7 +35,6 @@ void Water::generate()
             gridVertices[index + 2] = y * yStep;
         }
     }
-
 
     // making indices array for indexed rendering
     for (uint32_t index = 0, counter = 0, y = 0; y < _size.y; ++y, ++counter)

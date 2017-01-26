@@ -21,10 +21,10 @@ public:
     ~Terrain() = default;
 
 protected:
-    void generate(Heightmap* heightmap);
+    void generate();
 
 private:
     glm::uvec2 _size;
-
+    Heightmap* _heightmap;
 };
 
